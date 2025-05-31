@@ -37,17 +37,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: weread2notion sync
-        if: env.WEREAD2NOTION == 'true'
+        if: ${{ vars.WEREAD2NOTION == 'true' }}
         run: |
           weread2notion
-          exit 0
       - name: weread book sync
+        if: ${{ vars.WEREAD2NOTION != 'true' }}
         run: |
           book
       - name: weread sync
+        if: ${{ vars.WEREAD2NOTION != 'true' }}
         run: |
           weread
-      - name: weread sync
+      - name: fix sync
+        # Corrected indentation for the 'if' condition
+        if: ${{ vars.WEREAD2NOTION != 'true' }}
         run: |
-          weread
-      
+          fix
